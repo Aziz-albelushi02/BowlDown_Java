@@ -216,7 +216,11 @@ public class GameEngine {
      */
     private Player createPlayer() {
         //YOUR CODE HERE
-        return null;    //modify to return a Player object
+  
+        Player p1 = new Player(100,15,15);
+        
+        
+        return p1;    //modify to return a Player object
     }
 
     /**
