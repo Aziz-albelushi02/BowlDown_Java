@@ -64,7 +64,7 @@ public class GameGUI extends JFrame {
     private void initGUI() {
         add(canvas = new Canvas());     //adds canvas to this frame
         setTitle("BowlDown");
-        setSize(1136, 615);
+        setSize(1920, 1080);
         setLocationRelativeTo(null);        //sets position of frame on screen
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }

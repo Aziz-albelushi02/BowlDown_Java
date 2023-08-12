@@ -2,6 +2,7 @@ package uk.ac.bradford.cookgame;
 
 import java.util.ArrayList;
 import java.awt.Point;
+import java.awt.event.KeyEvent;
 import java.util.Random;
 
 /**
@@ -25,7 +26,7 @@ public class GameEngine {
      */
     public enum TileType {
         WALL, FLOOR1, FLOOR2, FOOD1, FOOD2, FOOD3, TABLE, DOOR;
-    
+
     }
 
     /**
@@ -33,14 +34,14 @@ public class GameEngine {
      * display to draw incorrectly, and as a minimum the size of the GUI would
      * need to be adjusted.
      */
-    public static final int LEVEL_WIDTH = 35;
+    public static final int LEVEL_WIDTH = 60;
 
     /**
      * The height of the level, measured in tiles. Changing this may cause the
      * display to draw incorrectly, and as a minimum the size of the GUI would
      * need to be adjusted.
      */
-    public static final int LEVEL_HEIGHT = 18;
+    public static final int LEVEL_HEIGHT = 32;
 
     /**
      * A random number generator that can be used to include randomised choices
@@ -137,14 +138,13 @@ public class GameEngine {
      */
     private TileType[][] generateLevel() {
         //YOUR CODE HERE
-        TileType[][] table = new TileType[35][18];
-        for (int i =0;i < table.length; i++){
-            for (int j = 0; j < table[i].length; j++)
-                table[i][j] = TileType.FLOOR2;
+        TileType[][] table = new TileType[60][32];
+        for (int i = 0; i < table.length; i++) {
+            for (int j = 0; j < table[i].length; j++) {
+                table[i][j] = TileType.FLOOR1;
+            }
         }
-        
-        
-        
+
         return table;    //modfy to return the 2D array that you build in this method
     }
 
@@ -216,14 +216,13 @@ public class GameEngine {
      */
     private Player createPlayer() {
         //YOUR CODE HERE
-  
-        Player p1 = new Player(100,15,15);
-        
-        
-        return p1;    //modify to return a Player object
-    }
 
-    /**
+        player = new Player(100, 14, 34); // player object has been created   
+        return player ;    //modify to return a Player object
+    }
+        
+
+      /**
      * Handles the movement of the player when attempting to move in the game.
      * This method is automatically called by the InputHandler class when the
      * user has presses one of the arrow keys on the keyboard. The method should
@@ -244,10 +243,29 @@ public class GameEngine {
      * @param direction A char representing the direction that the player should
      * move. U is up, D is down, L is left and R is right.
      */
+    
     public void movePlayer(char direction) {
         //YOUR CODE HERE
+        // swich statement to move the player object to any direction 
+        switch (direction){
+            case KeyEvent.VK_W:
+                player.setPosition(player.getX(), player.getY() - 1);
+                break;
+            case KeyEvent.VK_S:
+                player.setPosition(player.getX(), player.getY() + 1);
+                break;
+            case KeyEvent.VK_D:
+                player.setPosition(player.getX() + 1, player.getY());
+                break;
+            case KeyEvent.VK_A:
+                player.setPosition(player.getX() - 1, player.getY());
+                break;
+            
+            
+                
+      
     }
-
+    }
     /**
      * Attempts to give a customer the food that the player is carrying. This
      * method should only be called (from the movePlayer method) when the player
@@ -265,7 +283,7 @@ public class GameEngine {
      * @param g The Customer object corresponding to the customer in the game
      * that the player just attempted to move into the same tile as.
      */
-    private void deliverFood(Customer c) {
+     private void deliverFood(Customer c) {
         //YOUR CODE HERE
     }
 

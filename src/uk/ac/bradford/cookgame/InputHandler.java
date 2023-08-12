@@ -1,5 +1,4 @@
 package uk.ac.bradford.cookgame;
-
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -47,17 +46,17 @@ public class InputHandler implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
-            case KeyEvent.VK_LEFT:
-                engine.movePlayer('L');
-                break;  //handle left arrow key
-            case KeyEvent.VK_RIGHT:
-                engine.movePlayer('R');
-                break;//handle right arrow
-            case KeyEvent.VK_UP:
-                engine.movePlayer('U');
-                break;      //handle up arrow
-            case KeyEvent.VK_DOWN:
+            case KeyEvent.VK_D:
                 engine.movePlayer('D');
+                break;  //handle left arrow key
+            case KeyEvent.VK_A:
+                engine.movePlayer('A');
+                break;//handle right arrow
+            case KeyEvent.VK_W:
+                engine.movePlayer('W');
+                break;      //handle up arrow
+            case KeyEvent.VK_S:
+                engine.movePlayer('S');
                 break;  //handle down arrow
         }
         engine.doTurn();    //any key press will result in this method being called
