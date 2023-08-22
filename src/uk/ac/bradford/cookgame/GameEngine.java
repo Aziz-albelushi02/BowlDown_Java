@@ -195,8 +195,16 @@ public class GameEngine {
      * current level of the game
      */
     private Customer[] addCustomers() {
-        //YOUR CODE HERE
-        return null;    //modify to return the created array of Customer objects
+        
+        //customer object has been created 
+        Customer[] customers = new Customer[3];
+        
+        //customer array
+        customers[0] = new Customer(100, 15,16);
+        customers[1] = new Customer(100, 1,12);
+        customers[2] = new Customer(100, 11,3);
+        
+        return customers;    //modify to return the created array of Customer objects
     }
 
     /**
@@ -217,7 +225,7 @@ public class GameEngine {
     private Player createPlayer() {
         //YOUR CODE HERE
 
-        player = new Player(100, 14, 34); // player object has been created   
+        player = new Player(100, 14, 12); // player object has been created   
         return player ;    //modify to return a Player object
     }
         
