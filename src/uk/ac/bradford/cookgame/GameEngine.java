@@ -145,6 +145,11 @@ public class GameEngine {
             }
         }
 
+        table[12][7] = TileType.FOOD1;
+        table[36][13] = TileType.FOOD3;
+        table[43][29] = TileType.FOOD2;
+        table[6][29] = TileType.FOOD2;
+
         return table;    //modfy to return the 2D array that you build in this method
     }
 
@@ -195,15 +200,15 @@ public class GameEngine {
      * current level of the game
      */
     private Customer[] addCustomers() {
-        
+
         //customer object has been created 
         Customer[] customers = new Customer[3];
-        
+
         //customer array
-        customers[0] = new Customer(100, 15,16);
-        customers[1] = new Customer(100, 1,12);
-        customers[2] = new Customer(100, 11,3);
-        
+        customers[0] = new Customer(100, 4, 2);
+        customers[1] = new Customer(100, 37, 27);
+        customers[2] = new Customer(100, 55, 14);
+
         return customers;    //modify to return the created array of Customer objects
     }
 
@@ -226,11 +231,20 @@ public class GameEngine {
         //YOUR CODE HERE
 
         player = new Player(100, 14, 12); // player object has been created   
-        return player ;    //modify to return a Player object
+        return player;    //modify to return a Player object
     }
-        
 
-      /**
+    //get tile type method has been created
+    private TileType getTileAtPosition(int x, int y) {
+        if (x < 0 || x >= LEVEL_WIDTH || y < 0 || y >= LEVEL_HEIGHT) {
+            // Out of bounds, return WALL tile
+            return TileType.WALL;
+        }
+
+        return level[x][y];  // Assuming level is the 2D array of TileType representing the level
+    }
+
+    /**
      * Handles the movement of the player when attempting to move in the game.
      * This method is automatically called by the InputHandler class when the
      * user has presses one of the arrow keys on the keyboard. The method should
@@ -251,30 +265,126 @@ public class GameEngine {
      * @param direction A char representing the direction that the player should
      * move. U is up, D is down, L is left and R is right.
      */
-    
     public void movePlayer(char direction) {
         //YOUR CODE HERE
         // swich statement to move the player object to any direction 
-        switch (direction){
-            case KeyEvent.VK_W:
-                player.setPosition(player.getX(), player.getY() - 1);
-                break;
-            case KeyEvent.VK_S:
+
+        if (direction == KeyEvent.VK_W) {
+            player.setPosition(player.getX(), player.getY() - 1);
+
+            int nextX0 = player.getX();
+            int nextY0 = player.getY();
+            TileType nextTile0 = getTileAtPosition(nextX0, nextY0);
+
+            if (nextTile0 == TileType.FOOD1) {
+                player.grabFood(1);
+            } else if (nextTile0 == TileType.FOOD2) {
+                player.grabFood(2);
+            } else if (nextTile0 == TileType.FOOD3) {
+                player.grabFood(3);
+            }
+
+            // Check for customers
+            for (Customer customer : customers) {
+                if (customer.getX() == nextX0 && customer.getY() == nextY0) {
+                    if (player.hasFood()) {
+                        customer.feed();
+                        player.giveFood();
+                        player.changeStamina(10);
+
+                    }
+                    break;
+                }
+            }
+        }
+
+            else if (direction == KeyEvent.VK_S) {
                 player.setPosition(player.getX(), player.getY() + 1);
-                break;
-            case KeyEvent.VK_D:
-                player.setPosition(player.getX() + 1, player.getY());
-                break;
-            case KeyEvent.VK_A:
-                player.setPosition(player.getX() - 1, player.getY());
-                break;
-            
-            
-                
-      
+
+                int nextX1 = player.getX();
+                int nextY1 = player.getY();
+                TileType nextTile1 = getTileAtPosition(nextX1, nextY1);
+
+                if (nextTile1 == TileType.FOOD1) {
+                    player.grabFood(1);
+                } else if (nextTile1 == TileType.FOOD2) {
+                    player.grabFood(2);
+                } else if (nextTile1 == TileType.FOOD3) {
+                    player.grabFood(3);
+                }
+
+                // Check for customers
+                for (Customer customer : customers) {
+                    if (customer.getX() == nextX1 && customer.getY() == nextY1) {
+                        if (player.hasFood()) {
+                            customer.feed();
+                            player.giveFood();
+                            player.changeStamina(10);
+
+                        }
+                        break;
+                    }
+                }
+
+            } else if (direction == KeyEvent.VK_D) {
+                    player.setPosition(player.getX() + 1, player.getY());
+                    int nextX2 = player.getX();
+                    int nextY2 = player.getY();
+                    TileType nextTile2 = getTileAtPosition(nextX2, nextY2);
+                    if (nextTile2 == TileType.FOOD1) {
+                        player.grabFood(1);
+                    } else if (nextTile2 == TileType.FOOD2) {
+                        player.grabFood(2);
+                    } else if (nextTile2 == TileType.FOOD3) {
+                        player.grabFood(3);
+                    }
+
+                    // Check for customers
+                    for (Customer customer : customers) {
+                        if (customer.getX() == nextX2 && customer.getY() == nextY2) {
+                            if (player.hasFood()) {
+                                customer.feed();
+                                player.giveFood();
+                                player.changeStamina(10);
+
+                            }
+                            break;
+                        }
+                    }
+            } else if (direction == KeyEvent.VK_A) {
+                        player.setPosition(player.getX() - 1, player.getY());
+                        int nextX3 = player.getX();
+                        int nextY3 = player.getY();
+                        TileType nextTile3 = getTileAtPosition(nextX3, nextY3);
+                        if (nextTile3 == TileType.FOOD1) {
+                            player.grabFood(1);
+                        } else if (nextTile3 == TileType.FOOD2) {
+                            player.grabFood(2);
+                        } else if (nextTile3 == TileType.FOOD3) {
+                            player.grabFood(3);
+                        }
+
+                        // Check for customers
+                        for (Customer customer : customers) {
+                            if (customer.getX() == nextX3 && customer.getY() == nextY3) {
+                                if (player.hasFood()) {
+                                    customer.feed();
+                                    player.giveFood();
+                                    player.changeStamina(10);
+
+                                }
+                                break;
+                            }
+                        }
+
+                    
+               
+            }
+        
     }
-    }
+
     /**
+     *
      * Attempts to give a customer the food that the player is carrying. This
      * method should only be called (from the movePlayer method) when the player
      * attempts to move into the same tile as a customer and the player is
@@ -291,7 +401,7 @@ public class GameEngine {
      * @param g The Customer object corresponding to the customer in the game
      * that the player just attempted to move into the same tile as.
      */
-     private void deliverFood(Customer c) {
+    private void deliverFood(Customer c) {
         //YOUR CODE HERE
     }
 
